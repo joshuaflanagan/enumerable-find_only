@@ -39,4 +39,48 @@ RSpec.describe EnumerableOnly do
       expect(visited_items).to_not include(:c)
     end
   end
+
+  context 'block passed' do
+
+    context "when no items pass the block" do
+      it "returns nil" do
+        expect([2, 4, 6].only{ |item| item.odd? }).to be_nil
+      end
+    end
+
+    context "when exactly one item passes the block" do
+      it "returns the one item" do
+        expect([1,2].only{ |item| item.odd? }).to eq(1)
+      end
+
+    end
+
+    context "when more than one item passes the block" do
+      it "raises TooManyItems" do
+        expect{
+          [1, 2, 3].only{ |item| item.odd? }
+        }.to raise_error(EnumerableOnly::TooManyItems)
+      end
+
+      it "does not iterate the entire list" do
+        visited_items = []
+        list = Enumerator.new do |yielded|
+          visited_items << 1
+          yielded << 1
+          visited_items << 2
+          yielded << 2
+          visited_items << 3
+          yielded << 3
+          visited_items << 4
+          yielded << 4
+        end
+
+        expect{
+          list.only{ |item| item.odd? }
+        }.to raise_error(EnumerableOnly::TooManyItems)
+
+        expect(visited_items).to_not include(4)
+      end
+    end
+  end
 end
