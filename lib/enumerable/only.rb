@@ -6,11 +6,10 @@ end
 Enumerable.module_eval do
   def only
     if block_given?
-      parent_block = Proc.new # cheaper than def only(&block)
       already_seen = false
       result = nil
       each do |item|
-        if parent_block.call(item)
+        if yield(item)
           if already_seen
             raise EnumerableOnly::TooManyItems
           else
