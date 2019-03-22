@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "enumerable/only"
+require "enumerable/find_only"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

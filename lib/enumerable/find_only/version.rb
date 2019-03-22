@@ -1,0 +1,2 @@
+module EnumerableFindOnly
+end

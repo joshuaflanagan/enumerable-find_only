@@ -1,17 +1,17 @@
-module EnumerableOnly
+module EnumerableFindOnly
   class TooManyItems < StandardError
   end
 end
 
 Enumerable.module_eval do
-  def only
+  def find_only
     if block_given?
       already_seen = false
       result = nil
       each do |item|
         if yield(item)
           if already_seen
-            raise EnumerableOnly::TooManyItems
+            raise EnumerableFindOnly::TooManyItems
           else
             result = item
             already_seen = true
@@ -22,7 +22,7 @@ Enumerable.module_eval do
     else
       items = take(2)
       if items.length > 1
-        raise EnumerableOnly::TooManyItems
+        raise EnumerableFindOnly::TooManyItems
       end
 
       items[0]

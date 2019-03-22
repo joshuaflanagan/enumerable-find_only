@@ -1,15 +1,11 @@
-
-lib = File.expand_path("../lib", __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-
 Gem::Specification.new do |spec|
-  spec.name          = "enumerable-only"
+  spec.name          = "enumerable-find_only"
   spec.version       = "0.1.0"
   spec.authors       = ["Joshua Flanagan"]
   spec.email         = ["joshuaflanagan@gmail.com"]
 
-  spec.summary       = %q{Enumerable#only raises if more than one item can be returned}
-  spec.homepage      = "https://github.com/joshuaflanagan/enumerable-only"
+  spec.summary       = %q{Enumerable#find_only raises if more than one item can be returned}
+  spec.homepage      = "https://github.com/joshuaflanagan/enumerable-find_only"
   spec.license       = "MIT"
 
   # Specify which files should be added to the gem when it is released.

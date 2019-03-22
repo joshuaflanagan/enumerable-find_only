@@ -1,24 +1,24 @@
-# Enumerable::Only
+# Enumerable::FindOnly
 
 
-Adds the `#only` method to all `Enumerable` objects.
+Adds the `#find_only` method to all `Enumerable` objects.
 
-`#only` behaves like `first`, except that it raises if more than one item is
+`#find_only` behaves like `first`, except that it raises if more than one item is
 in the collection.
 
 ```
 # no items in the collection:
 
-[].only => nil
+[].find_only => nil
 
 
 # exactly one item in the collection:
 
-[:item].only => :item
+[:item].find_only => :item
 
 # more than one items in the collection:
 
-[:first, :second].only => raises TooManyItems
+[:first, :second].find_only => raises TooManyItems
 ```
 
 
@@ -27,7 +27,7 @@ in the collection.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'enumerable-only'
+gem 'enumerable-find_only'
 ```
 
 And then execute:
@@ -36,7 +36,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install enumerable-only
+    $ gem install enumerable-find_only
 
 
 ## License

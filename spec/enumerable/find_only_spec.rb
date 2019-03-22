@@ -1,15 +1,15 @@
 require "spec_helper"
 
-RSpec.describe EnumerableOnly do
+RSpec.describe EnumerableFindOnly do
   context "when no items are available" do
     it "returns nil" do
-      expect([].only).to be_nil
+      expect([].find_only).to be_nil
     end
   end
 
   context "when exactly one item is available" do
     it "returns the one item" do
-      expect([:item].only).to eq(:item)
+      expect([:item].find_only).to eq(:item)
     end
 
   end
@@ -17,8 +17,8 @@ RSpec.describe EnumerableOnly do
   context "when more than one items are available" do
     it "raises TooManyItems" do
       expect{
-        [:first, :second].only
-      }.to raise_error(EnumerableOnly::TooManyItems)
+        [:first, :second].find_only
+      }.to raise_error(EnumerableFindOnly::TooManyItems)
     end
 
     it "does not iterate the entire list" do
@@ -33,8 +33,8 @@ RSpec.describe EnumerableOnly do
       end
 
       expect{
-        list.only
-      }.to raise_error(EnumerableOnly::TooManyItems)
+        list.find_only
+      }.to raise_error(EnumerableFindOnly::TooManyItems)
 
       expect(visited_items).to_not include(:c)
     end
@@ -44,13 +44,13 @@ RSpec.describe EnumerableOnly do
 
     context "when no items pass the block" do
       it "returns nil" do
-        expect([2, 4, 6].only{ |item| item.odd? }).to be_nil
+        expect([2, 4, 6].find_only{ |item| item.odd? }).to be_nil
       end
     end
 
     context "when exactly one item passes the block" do
       it "returns the one item" do
-        expect([1,2].only{ |item| item.odd? }).to eq(1)
+        expect([1,2].find_only{ |item| item.odd? }).to eq(1)
       end
 
     end
@@ -58,8 +58,8 @@ RSpec.describe EnumerableOnly do
     context "when more than one item passes the block" do
       it "raises TooManyItems" do
         expect{
-          [1, 2, 3].only{ |item| item.odd? }
-        }.to raise_error(EnumerableOnly::TooManyItems)
+          [1, 2, 3].find_only{ |item| item.odd? }
+        }.to raise_error(EnumerableFindOnly::TooManyItems)
       end
 
       it "does not iterate the entire list" do
@@ -76,8 +76,8 @@ RSpec.describe EnumerableOnly do
         end
 
         expect{
-          list.only{ |item| item.odd? }
-        }.to raise_error(EnumerableOnly::TooManyItems)
+          list.find_only{ |item| item.odd? }
+        }.to raise_error(EnumerableFindOnly::TooManyItems)
 
         expect(visited_items).to_not include(4)
       end
